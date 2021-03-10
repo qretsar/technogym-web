@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState, useEffect } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+//Importing Components
+import Form from "./components/Form";
+import MemberList from "./components/MemberList";
+////
 function App() {
+  const [form, setForm] = useState({
+    ime: "",
+    prezime: "",
+    instagram: "",
+    viber: "",
+    datum: "",
+    uplata: "",
+    active: "",
+  });
+  const [members, setMembers] = useState([]);
+  useEffect(() => {
+    setMembers(JSON.parse(localStorage.getItem("members")));
+    console.log(JSON.parse(localStorage.members));
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Form
+        form={form}
+        setForm={setForm}
+        members={members}
+        setMembers={setMembers}
+      />
+      <MemberList members={members} setMembers={setMembers} />
     </div>
   );
 }

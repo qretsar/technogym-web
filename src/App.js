@@ -4,6 +4,7 @@ import "./App.css";
 //Importing Components
 import Form from "./components/Form";
 import MemberList from "./components/MemberList";
+import BasicTable from "./components/Table";
 ////
 function App() {
   const [form, setForm] = useState({
@@ -18,7 +19,7 @@ function App() {
   const [members, setMembers] = useState([]);
   useEffect(() => {
     setMembers(JSON.parse(localStorage.getItem("members")));
-    console.log(JSON.parse(localStorage.members));
+    // console.log(JSON.parse(localStorage.members));
   }, []);
   return (
     <div className="App">
@@ -28,6 +29,7 @@ function App() {
         members={members}
         setMembers={setMembers}
       />
+      {/* <BasicTable members={members} /> */}
       <MemberList members={members} setMembers={setMembers} />
     </div>
   );

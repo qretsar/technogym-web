@@ -22,27 +22,27 @@ const Form = ({ form, setForm, members, setMembers }) => {
               active: !item.active,
             };
           }
+          return item;
         })
       );
     } else {
-      setMembers([
-        ...members,
-        {
-          ime: form.ime,
-          prezime: form.prezime,
-          instagram: form.instagram,
-          viber: form.viber,
-          uplata: form.uplata,
-          datum: new Date(),
-          id: Math.random() + 1000,
-          active: true,
-        },
-      ]);
+      let newMember = {
+        ime: form.ime,
+        prezime: form.prezime,
+        instagram: form.instagram,
+        viber: form.viber,
+        uplata: form.uplata,
+        datum: new Date(),
+        id: Math.random() + 1000,
+        active: true,
+      };
+      return setMembers([...members, members.push(newMember)]);
     }
   };
   const formSubmitHandler = (e) => {
     e.preventDefault();
     ifExits();
+    console.log(members);
     localStorage.setItem("members", JSON.stringify(members));
     console.log(JSON.parse(localStorage.members));
   };

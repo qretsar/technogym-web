@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 //Importing Components
-import Form from "./components/Form";
+import Form from "./container/Form";
 import MemberList from "./components/MemberList";
 import BasicTable from "./components/Table";
 ////
@@ -17,12 +17,13 @@ function App() {
     active: "",
   });
   const [members, setMembers] = useState([]);
+
   useEffect(() => {
     setMembers(JSON.parse(localStorage.getItem("members")));
     // console.log(JSON.parse(localStorage.members));
-  }, []);
+  }, [localStorage.members]);
   return (
-    <div className="App">
+    <div className="container-sm my-5">
       <Form
         form={form}
         setForm={setForm}
@@ -30,7 +31,7 @@ function App() {
         setMembers={setMembers}
       />
       {/* <BasicTable members={members} /> */}
-      <MemberList members={members} setMembers={setMembers} />
+      <MemberList members={members} setMembers={setMembers} setForm={setForm} />
     </div>
   );
 }

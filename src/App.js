@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 //Importing Components
 import Form from "./container/Form";
+import Search from "./container/Search";
 import MemberList from "./components/MemberList";
-import BasicTable from "./components/Table";
+
 ////
 function App() {
   const [form, setForm] = useState({
@@ -30,7 +30,7 @@ function App() {
         members={members}
         setMembers={setMembers}
       />
-      {/* <BasicTable members={members} /> */}
+      <Search members={members} setForm={setForm} />
       <MemberList members={members} setMembers={setMembers} setForm={setForm} />
     </div>
   );

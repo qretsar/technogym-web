@@ -16,17 +16,18 @@ const Form = ({ form, setForm, members, setMembers }) => {
   const ifExits = () => {
     //Checks if user already exists
     if (members.some((member) => member.ime === form.ime)) {
-      //if existsy
+      //if exists
+      // Passuje sve membere i menja samo state korisnika da li je aktivan
       setMembers(
         members.map((item) => {
           if (item.ime === form.ime) {
             return {
               ...item,
-              active:
-                format(new Date(), "dd-MM-yyyy") <
-                format(new Date(11, 1, 2014), "dd-MM-yyyy")
-                  ? true
-                  : false,
+              active: !item.active,
+              // format(new Date(), "dd-MM-yyyy") <
+              // format(new Date(11, 1, 2014), "dd-MM-yyyy")
+              //   ? true
+              //   : false,
             };
           }
           return item;

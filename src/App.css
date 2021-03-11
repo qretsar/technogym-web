@@ -9,6 +9,13 @@
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   padding: 40px;
 }
+.searchdiv {
+  padding-top: 1rem;
+}
+p {
+  color: gray;
+  padding-left: 1rem;
+}
 /*  */
 /* .input-group {z
   display: flex !important;

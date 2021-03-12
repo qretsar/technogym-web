@@ -21,6 +21,7 @@ function App() {
       ime: "Stefan",
       prezime: "Kucurski",
       viber: "053",
+      instagram: "john_diamond",
       active: false,
     },
   ]);

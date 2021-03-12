@@ -38,8 +38,11 @@ const Form = ({ form, setForm, members, setMembers }) => {
         }
         return item;
       });
+      console.log(editedMembers);
       setMembers(editedMembers);
-      localStorage.setItem("members", JSON.stringify(members));
+      localStorage.setItem("members", JSON.stringify(editedMembers));
+
+      console.log(JSON.parse(localStorage.members));
     } else {
       setMembers([...members, members.push(newMember)]);
       localStorage.setItem("members", JSON.stringify(members));
@@ -48,17 +51,11 @@ const Form = ({ form, setForm, members, setMembers }) => {
   const formSubmitHandler = (e) => {
     e.preventDefault();
     ifExits();
-    console.log(members);
+    // console.log(members);
     // localStorage.setItem("members", JSON.stringify(members));
-    console.log(JSON.parse(localStorage.members));
+    // console.log(JSON.parse(localStorage.members));
   };
 
-  let style = {
-    boxShadow: "0 0.5rem 0.4rem rgba(0, 0, 0, 0.6)",
-
-    padding: "1rem",
-  };
-  // onHover={(style = { style })}
   return (
     <div>
       <form action="" className="form">
@@ -70,6 +67,7 @@ const Form = ({ form, setForm, members, setMembers }) => {
             className="form-control"
             type="text"
             placeholder="ime"
+            required="required"
           />
           <input
             name="prezime"
@@ -78,6 +76,7 @@ const Form = ({ form, setForm, members, setMembers }) => {
             className="form-control"
             type="text"
             placeholder="prezime"
+            required="required"
           />
           <input
             name="instagram"
@@ -86,6 +85,7 @@ const Form = ({ form, setForm, members, setMembers }) => {
             className="form-control"
             type="text"
             placeholder="instagram"
+            required
           />
           <input
             name="viber"
@@ -94,6 +94,7 @@ const Form = ({ form, setForm, members, setMembers }) => {
             className="form-control"
             type="text"
             placeholder="viber"
+            required
           />
           <input
             name="uplata"
@@ -102,6 +103,7 @@ const Form = ({ form, setForm, members, setMembers }) => {
             className="form-control"
             type="number"
             placeholder="uplata"
+            required
           />
           <button
             onClick={formSubmitHandler}

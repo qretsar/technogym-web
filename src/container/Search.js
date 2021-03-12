@@ -1,6 +1,5 @@
 import React from "react";
-
-const Search = ({ members, setForm, setStatus }) => {
+const Search = ({ members, setForm }) => {
   const searchHandler = (e) => {
     const filteredMembers = members.filter((member) => {
       return (
@@ -20,9 +19,6 @@ const Search = ({ members, setForm, setStatus }) => {
     }
     console.log(filteredMembers);
   };
-  const statusHandler = (e) => {
-    setStatus(e.target.value);
-  };
   return (
     <>
       <div className="input-group searchdiv">
@@ -34,13 +30,8 @@ const Search = ({ members, setForm, setStatus }) => {
           className="form-control"
           id="search"
         />
-        <select onChange={statusHandler} name="todos" className="form-select">
-          <option value="svi">Svi korisnici</option>
-          <option value="aktivni">Aktivni</option>
-          <option value="neaktivni">Neaktivni</option>
-        </select>
       </div>
-      <p className="broj-clanova">Broj korisnika: {members.length}</p>
+      <p className="broj-clanova">Ukupan broj korisnika: {members.length}</p>
     </>
   );
 };

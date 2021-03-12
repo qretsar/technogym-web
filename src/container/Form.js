@@ -12,57 +12,56 @@ const Form = ({ form, setForm, members, setMembers }) => {
       [e.target.name]: value,
     });
   };
-
+  let newMember = {
+    ime: form.ime,
+    prezime: form.prezime,
+    instagram: form.instagram,
+    viber: form.viber,
+    uplata: form.uplata,
+    datum:
+      format(new Date(), "dd-MM-yyyy") >
+      format(new Date(11, 1, 2014), "dd-MM-yyyy")
+        ? format(new Date(), "dd-MM-yyyy")
+        : "Nije veci",
+    id: Math.random() + 1000,
+    active: true,
+  };
   const ifExits = () => {
     //Checks if user already exists
     if (members.some((member) => member.ime === form.ime)) {
-      //if exists
-      // Passuje sve membere i menja samo state korisnika da li je aktivan
-      setMembers(
-        members.map((item) => {
-          if (item.ime === form.ime) {
-            return {
-              ...item,
-              active: !item.active,
-              // format(new Date(), "dd-MM-yyyy") <
-              // format(new Date(11, 1, 2014), "dd-MM-yyyy")
-              //   ? true
-              //   : false,
-            };
-          }
-          return item;
-        })
-      );
+      let editedMembers = members.map((item) => {
+        if (item.ime === form.ime) {
+          return {
+            ...item,
+            active: !item.active,
+          };
+        }
+        return item;
+      });
+      setMembers(editedMembers);
+      localStorage.setItem("members", JSON.stringify(members));
     } else {
-      let newMember = {
-        ime: form.ime,
-        prezime: form.prezime,
-        instagram: form.instagram,
-        viber: form.viber,
-        uplata: form.uplata,
-        datum:
-          format(new Date(), "dd-MM-yyyy") >
-          format(new Date(11, 1, 2014), "dd-MM-yyyy")
-            ? format(new Date(), "dd-MM-yyyy")
-            : "Nije veci",
-        id: Math.random() + 1000,
-        active: true,
-      };
-      return setMembers([...members, members.push(newMember)]);
+      setMembers([...members, members.push(newMember)]);
+      localStorage.setItem("members", JSON.stringify(members));
     }
-    localStorage.setItem("members", JSON.stringify(members));
   };
   const formSubmitHandler = (e) => {
     e.preventDefault();
     ifExits();
     console.log(members);
-    localStorage.setItem("members", JSON.stringify(members));
+    // localStorage.setItem("members", JSON.stringify(members));
     console.log(JSON.parse(localStorage.members));
   };
 
+  let style = {
+    boxShadow: "0 0.5rem 0.4rem rgba(0, 0, 0, 0.6)",
+
+    padding: "1rem",
+  };
+  // onHover={(style = { style })}
   return (
-    <div className="input-group">
-      <form>
+    <div>
+      <form action="" className="form">
         <div className="input-group">
           <input
             name="ime"
@@ -110,7 +109,7 @@ const Form = ({ form, setForm, members, setMembers }) => {
             value="add"
             type="submit"
           >
-            Send
+            Dodaj
           </button>
         </div>
       </form>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const MemberRender = ({ member, setForm }) => {
+const MemberRender = ({ member, setForm, members, setMembers }) => {
   let styleRed = {
     background: "#df4459bc",
     color: "white",
@@ -17,6 +17,15 @@ const MemberRender = ({ member, setForm }) => {
       viber: member.viber,
     });
   };
+  const deleteButtonHandler = (e) => {
+    console.log();
+    let allMembers = members.filter(
+      (member) =>
+        member.viber !== e.target.closest("tr").childNodes[3].innerText
+    );
+    setMembers(allMembers);
+    localStorage.setItem("members", JSON.stringify(allMembers));
+  };
   return (
     <tr style={member.active ? styleBlue : styleRed}>
       <td>{member.ime}</td>
@@ -30,7 +39,7 @@ const MemberRender = ({ member, setForm }) => {
         </button>
       </td>
       <td>
-        <button onClick={selectButtonHandler} className="btn btn-danger">
+        <button onDoubleClick={deleteButtonHandler} className="btn btn-danger">
           <i className="fas fa-trash"></i>
         </button>
       </td>

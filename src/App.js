@@ -16,12 +16,37 @@ function App() {
     uplata: "",
     active: "",
   });
-  const [members, setMembers] = useState([]);
+  const [members, setMembers] = useState([
+    {
+      ime: "Stefan",
+      prezime: "Kucurski",
+      viber: "053",
+      active: false,
+    },
+  ]);
+  const [status, setStatus] = useState("svi");
+  const [filteredMembers, setFilteredMembers] = useState([]);
 
   useEffect(() => {
     setMembers(JSON.parse(localStorage.getItem("members")));
     // console.log(JSON.parse(localStorage.members));
   }, [localStorage.members]);
+  useEffect(() => {
+    // saveLocalTodos();
+    filterHandler();
+  }, [members, status]);
+  const filterHandler = () => {
+    switch (status) {
+      case "aktivni":
+        setFilteredMembers(members.filter((member) => member.active === true));
+        break;
+      case "neaktivni":
+        setFilteredMembers(members.filter((member) => member.active === false));
+      default:
+        setFilteredMembers(members);
+        break;
+    }
+  };
   return (
     <div className="container-sm my-5">
       <Form
@@ -30,7 +55,7 @@ function App() {
         members={members}
         setMembers={setMembers}
       />
-      <Search members={members} setForm={setForm} />
+      <Search members={members} setForm={setForm} setStatus={setStatus} />
       <MemberList members={members} setMembers={setMembers} setForm={setForm} />
     </div>
   );

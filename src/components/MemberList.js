@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MemberRender from "../container/MemberRender";
 
-const MemberList = ({ members, setForm }) => {
+const MemberList = ({ members, setMembers, setForm }) => {
   return (
     <div className="table-responsive">
       <table id="table-all" className="table table-striped table-hover">
@@ -18,7 +18,13 @@ const MemberList = ({ members, setForm }) => {
         </thead>
         <tbody>
           {members.map((member) => (
-            <MemberRender key={member.id} member={member} setForm={setForm} />
+            <MemberRender
+              key={member.id}
+              member={member}
+              setForm={setForm}
+              members={members}
+              setMembers={setMembers}
+            />
           ))}
         </tbody>
       </table>

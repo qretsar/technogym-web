@@ -6,6 +6,7 @@ const MemberRender = ({
   filteredMembers,
   setMembers,
   setSearch,
+  resetForm,
 }) => {
   let styleRed = {
     background: "rgb(223 68 89)",
@@ -32,6 +33,7 @@ const MemberRender = ({
     );
     setMembers(allMembers);
     localStorage.setItem("members", JSON.stringify(allMembers));
+    resetForm();
   };
 
   return (

@@ -1,7 +1,7 @@
 import React from "react";
 import { format, parse } from "date-fns";
 
-const Form = ({ form, setForm, members, setMembers }) => {
+const Form = ({ form, setForm, members, setMembers, loadMembersFromLS }) => {
   const setSubscriptionDate = (inpDatum, brojUplacenihMeseci) => {
     let datum = new Date(
       inpDatum.setMonth(inpDatum.getMonth() + brojUplacenihMeseci)
@@ -19,25 +19,21 @@ const Form = ({ form, setForm, members, setMembers }) => {
       [e.target.name]: value,
     });
   };
-
-  // let newMember = {
-  //   ime: form.ime,
-  //   prezime: form.prezime,
-  //   instagram: form.instagram,
-  //   viber: form.viber,
-  //   uplata: form.uplata,
-  //   datum: format(new Date(), "dd-MM-yyyy"),
-  //   valid: setSubscriptionDate(new Date(), brojUplacenihMeseci),
-  //   id: Math.random() + 1000,
-  //   active: true,
-  // };
+  const resetForm = () => {
+    setForm({
+      ime: "",
+      prezime: "",
+      instagram: "",
+      viber: "",
+      datum: "",
+      uplata: "0",
+      active: "",
+    });
+  };
   const ifExits = () => {
     //Checks if user already exists
-  };
-  const formSubmitHandler = (e) => {
-    e.preventDefault();
     let brojUplacenihMeseci = Math.ceil(form.uplata / 30);
-    // ifExits();
+    loadMembersFromLS();
     if (members.some((member) => member.ime === form.ime)) {
       let editedMembers = members.map((item) => {
         if (item.ime === form.ime) {
@@ -80,6 +76,11 @@ const Form = ({ form, setForm, members, setMembers }) => {
       ]);
       localStorage.setItem("members", JSON.stringify(members));
     }
+  };
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
+    ifExits();
+    resetForm();
   };
 
   return (

@@ -34,6 +34,16 @@ function App() {
   const [search, setSearch] = useState("");
   //EFFECT
   useEffect(() => {
+    loadMembersFromLS();
+    // console.log(JSON.parse(localStorage.members));
+  }, [localStorage.members]);
+  useEffect(() => {
+    // saveLocalTodos();
+    filterHandler();
+    console.log(search);
+  }, [members, search, status]);
+  //FUNCTIONS
+  const loadMembersFromLS = () => {
     let tempMember = [
       {
         ime: "Lana",
@@ -51,15 +61,7 @@ function App() {
       localStorage.setItem("members", JSON.stringify(tempMember));
     }
     setMembers(JSON.parse(localStorage.getItem("members")));
-    // console.log(JSON.parse(localStorage.members));
-  }, [localStorage.members]);
-  useEffect(() => {
-    // saveLocalTodos();
-    filterHandler();
-    console.log(search);
-  }, [members, search, status]);
-  //FUNCTIONS
-
+  };
   const filterHandler = () => {
     let activeMembers = members.map((member) => {
       let validToCompare = parse(member.valid, "dd-MM-yyyy", new Date());
@@ -108,6 +110,17 @@ function App() {
       );
     }
   };
+  const resetForm = () => {
+    setForm({
+      ime: "",
+      prezime: "",
+      instagram: "",
+      viber: "",
+      datum: "",
+      uplata: "0",
+      active: "",
+    });
+  };
 
   return (
     <div className="container my-5">
@@ -121,6 +134,8 @@ function App() {
         setForm={setForm}
         members={members}
         setMembers={setMembers}
+        loadMembersFromLS={loadMembersFromLS}
+        resetForm={resetForm}
       />
       <Search
         members={members}
@@ -133,6 +148,7 @@ function App() {
         setMembers={setMembers}
         setForm={setForm}
         setSearch={setSearch}
+        resetForm={resetForm}
       />
     </div>
   );

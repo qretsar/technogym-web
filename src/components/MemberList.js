@@ -1,7 +1,13 @@
 import React from "react";
 import MemberRender from "../container/MemberRender";
 
-const MemberList = ({ filteredMembers, setMembers, setForm, setSearch }) => {
+const MemberList = ({
+  filteredMembers,
+  setMembers,
+  setForm,
+  resetForm,
+  setSearch,
+}) => {
   return (
     <div className="table-responsive">
       <table id="table-all" className="table table-striped table-hover">
@@ -22,6 +28,7 @@ const MemberList = ({ filteredMembers, setMembers, setForm, setSearch }) => {
               key={member.id}
               member={member}
               setForm={setForm}
+              resetForm={resetForm}
               filteredMembers={filteredMembers}
               setMembers={setMembers}
               setSearch={setSearch}

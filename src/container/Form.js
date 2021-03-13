@@ -1,8 +1,15 @@
 import React from "react";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 
 const Form = ({ form, setForm, members, setMembers }) => {
-  //functions
+  const setSubscriptionDate = (inpDatum, brojUplacenihMeseci) => {
+    let datum = new Date(
+      inpDatum.setMonth(inpDatum.getMonth() + brojUplacenihMeseci)
+    );
+    console.log("Updated date: " + datum);
+    datum = format(datum, "dd-MM-yyyy");
+    return datum;
+  };
   const inputChangeHandler = (e) => {
     const value = e.target.value;
 
@@ -12,28 +19,41 @@ const Form = ({ form, setForm, members, setMembers }) => {
       [e.target.name]: value,
     });
   };
-  let newMember = {
-    ime: form.ime,
-    prezime: form.prezime,
-    instagram: form.instagram,
-    viber: form.viber,
-    uplata: form.uplata,
-    datum:
-      format(new Date(), "dd-MM-yyyy") >
-      format(new Date(11, 1, 2014), "dd-MM-yyyy")
-        ? format(new Date(), "dd-MM-yyyy")
-        : "Nije veci",
-    id: Math.random() + 1000,
-    active: true,
-  };
+
+  // let newMember = {
+  //   ime: form.ime,
+  //   prezime: form.prezime,
+  //   instagram: form.instagram,
+  //   viber: form.viber,
+  //   uplata: form.uplata,
+  //   datum: format(new Date(), "dd-MM-yyyy"),
+  //   valid: setSubscriptionDate(new Date(), brojUplacenihMeseci),
+  //   id: Math.random() + 1000,
+  //   active: true,
+  // };
   const ifExits = () => {
     //Checks if user already exists
+  };
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
+    let brojUplacenihMeseci = Math.ceil(form.uplata / 30);
+    // ifExits();
     if (members.some((member) => member.ime === form.ime)) {
       let editedMembers = members.map((item) => {
         if (item.ime === form.ime) {
+          console.log(
+            "Valid: " + parse(item.valid.toString(), "dd-MM-yyyy", new Date())
+          );
           return {
             ...item,
-            active: !item.active,
+            ime: form.ime,
+            prezime: form.prezime,
+            instagram: form.instagram,
+            viber: form.viber,
+            valid: setSubscriptionDate(
+              parse(item.valid, "dd-MM-yyyy", new Date()),
+              brojUplacenihMeseci
+            ),
           };
         }
         return item;
@@ -44,16 +64,22 @@ const Form = ({ form, setForm, members, setMembers }) => {
 
       console.log(JSON.parse(localStorage.members));
     } else {
-      setMembers([...members, members.push(newMember)]);
+      setMembers([
+        ...members,
+        members.push({
+          ime: form.ime,
+          prezime: form.prezime,
+          instagram: form.instagram,
+          viber: form.viber,
+          uplata: form.uplata,
+          datum: format(new Date(), "dd-MM-yyyy"),
+          valid: setSubscriptionDate(new Date(), brojUplacenihMeseci),
+          id: Math.random() + 1000,
+          active: true,
+        }),
+      ]);
       localStorage.setItem("members", JSON.stringify(members));
     }
-  };
-  const formSubmitHandler = (e) => {
-    e.preventDefault();
-    ifExits();
-    // console.log(members);
-    // localStorage.setItem("members", JSON.stringify(members));
-    // console.log(JSON.parse(localStorage.members));
   };
 
   return (

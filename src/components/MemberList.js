@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import MemberRender from "../container/MemberRender";
 
-const MemberList = ({ members, setMembers, setForm }) => {
+const MemberList = ({ filteredMembers, setMembers, setForm }) => {
   return (
     <div className="table-responsive">
       <table id="table-all" className="table table-striped table-hover">
-        <thead>
+        <thead className="thead-light">
           <tr>
             <th scope="col">Ime</th>
             <th scope="col">Prezime</th>
@@ -17,12 +17,12 @@ const MemberList = ({ members, setMembers, setForm }) => {
           </tr>
         </thead>
         <tbody>
-          {members.map((member) => (
+          {filteredMembers.map((member) => (
             <MemberRender
               key={member.id}
               member={member}
               setForm={setForm}
-              members={members}
+              filteredMembers={filteredMembers}
               setMembers={setMembers}
             />
           ))}

@@ -1,12 +1,12 @@
 import React from "react";
-const Search = ({ members, setForm }) => {
+const Search = ({ members, setForm, setStatus }) => {
   const searchHandler = (e) => {
     const filteredMembers = members.filter((member) => {
       return (
-        member.ime.includes(e.target.value) ||
-        member.prezime.includes(e.target.value) ||
-        member.instagram.includes(e.target.value) ||
-        member.viber.includes(e.target.value)
+        member.ime.toLowerCase().includes(e.target.value.toLowerCase()) ||
+        member.prezime.toLowerCase().includes(e.target.value.toLowerCase()) ||
+        member.instagram.toLowerCase().includes(e.target.value.toLowerCase()) ||
+        member.viber.toLowerCase().includes(e.target.value.toLowerCase())
       );
     });
     if (filteredMembers.length === 1) {
@@ -19,6 +19,9 @@ const Search = ({ members, setForm }) => {
     }
     console.log(filteredMembers);
   };
+  const statusHandler = (e) => {
+    setStatus(e.target.value);
+  };
   return (
     <>
       <div className="input-group searchdiv">
@@ -30,6 +33,12 @@ const Search = ({ members, setForm }) => {
           className="form-control"
           id="search"
         />
+
+        <select onChange={statusHandler} name="todos" className="form-select">
+          <option value="svi">Svi korisnici</option>
+          <option value="aktivni">Aktivni</option>
+          <option value="neaktivni">Neaktivni</option>
+        </select>
       </div>
       <p className="broj-clanova">Ukupan broj korisnika: {members.length}</p>
     </>

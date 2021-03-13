@@ -1,6 +1,6 @@
 import React from "react";
 
-const MemberRender = ({ member, setForm, members, setMembers }) => {
+const MemberRender = ({ member, setForm, filteredMembers, setMembers }) => {
   let styleRed = {
     background: "#df4459bc",
     color: "white",
@@ -19,7 +19,7 @@ const MemberRender = ({ member, setForm, members, setMembers }) => {
   };
   const deleteButtonHandler = (e) => {
     console.log();
-    let allMembers = members.filter(
+    let allMembers = filteredMembers.filter(
       (member) =>
         member.viber !== e.target.closest("tr").childNodes[3].innerText
     );
@@ -32,7 +32,7 @@ const MemberRender = ({ member, setForm, members, setMembers }) => {
       <td>{member.prezime}</td>
       <td>{member.instagram}</td>
       <td>{member.viber}</td>
-      <td>{member.datum}</td>
+      <td>{member.valid}</td>
       <td>
         <button onClick={selectButtonHandler} className="btn btn-info">
           <i className="fas fa-check"></i>

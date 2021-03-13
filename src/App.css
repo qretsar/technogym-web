@@ -28,7 +28,16 @@ p {
   box-shadow: 0 0.5rem 0.4rem rgba(0, 0, 0, 0.6);
   padding: 1rem;
 }
-
+.form-select {
+  color: gray;
+}
+.header {
+  margin-bottom: -2.2rem;
+}
+/* .header > p {
+  color: gray;
+  padding-left: 0rem;
+} */
 /* .form :hover {
   box-shadow: 0 0.5rem 0.4rem rgba(0, 0, 0, 0.6);
   padding: 1rem;

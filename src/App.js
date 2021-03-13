@@ -31,6 +31,7 @@ function App() {
   ]);
   const [status, setStatus] = useState("svi");
   const [filteredMembers, setFilteredMembers] = useState([]);
+  const [search, setSearch] = useState("");
   //EFFECT
   useEffect(() => {
     setMembers(JSON.parse(localStorage.getItem("members")));
@@ -39,7 +40,8 @@ function App() {
   useEffect(() => {
     // saveLocalTodos();
     filterHandler();
-  }, [members, status]);
+    console.log(search);
+  }, [members, search, status]);
   //FUNCTIONS
 
   const filterHandler = () => {
@@ -57,6 +59,7 @@ function App() {
         };
       }
     });
+
     switch (status) {
       case "aktivni":
         setFilteredMembers(
@@ -74,19 +77,41 @@ function App() {
         setFilteredMembers(activeMembers);
         break;
     }
+    if (search.length > 0) {
+      console.log("search: " + search);
+      setStatus("svi");
+      setFilteredMembers(
+        activeMembers.filter((member) => {
+          return (
+            member.ime.toLowerCase().includes(search.toLowerCase()) ||
+            member.prezime.toLowerCase().includes(search.toLowerCase()) ||
+            member.instagram.toLowerCase().includes(search.toLowerCase()) ||
+            member.viber.toLowerCase().includes(search.toLowerCase())
+          );
+        })
+      );
+    }
   };
 
   return (
     <div className="container my-5">
-      <img src={logo} class="img-fluid" alt="Responsive image" />
-      <p>Fitness Studio FitX</p>
+      <div className="header">
+        <img src={logo} class="img-fluid" alt="Responsive image" />
+        <p>Fitness Studio</p>
+      </div>
+
       <Form
         form={form}
         setForm={setForm}
         members={members}
         setMembers={setMembers}
       />
-      <Search members={members} setForm={setForm} setStatus={setStatus} />
+      <Search
+        members={members}
+        setForm={setForm}
+        setStatus={setStatus}
+        setSearch={setSearch}
+      />
       <MemberList
         filteredMembers={filteredMembers}
         setMembers={setMembers}

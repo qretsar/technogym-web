@@ -1,5 +1,5 @@
 import React from "react";
-const Search = ({ members, setForm, setStatus }) => {
+const Search = ({ members, setForm, setStatus, setSearch }) => {
   const searchHandler = (e) => {
     const filteredMembers = members.filter((member) => {
       return (
@@ -17,17 +17,19 @@ const Search = ({ members, setForm, setStatus }) => {
         viber: filteredMembers[0].viber,
       });
     }
-    console.log(filteredMembers);
+    setSearch(e.target.value);
+    console.log("Filtered : " + filteredMembers);
   };
   const statusHandler = (e) => {
     setStatus(e.target.value);
   };
+
   return (
     <>
       <div className="input-group searchdiv">
         <input
           onKeyUp={searchHandler}
-          type="t   ext"
+          type="text"
           name="search"
           placeholder="Pretrazi"
           className="form-control"

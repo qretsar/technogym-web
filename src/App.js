@@ -21,19 +21,35 @@ function App() {
     active: "",
   });
   const [members, setMembers] = useState([
-    // {
-    //   ime: "Stefan",
-    //   prezime: "Kucurski",
-    //   viber: "053",
-    //   instagram: "john_diamond",
-    //   active: false,
-    // },
+    {
+      ime: "Stefan",
+      prezime: "Kucurski",
+      viber: "053",
+      instagram: "john_diamond",
+      active: false,
+    },
   ]);
   const [status, setStatus] = useState("svi");
   const [filteredMembers, setFilteredMembers] = useState([]);
   const [search, setSearch] = useState("");
   //EFFECT
   useEffect(() => {
+    let tempMember = [
+      {
+        ime: "Lana",
+        prezime: "Kucurski",
+        instagram: "lanaban",
+        viber: "394349",
+        uplata: "45",
+        datum: "13-03-2021",
+        valid: "13-07-2020",
+        id: 1000.2788200979525,
+        active: false,
+      },
+    ];
+    if (localStorage.members === undefined) {
+      localStorage.setItem("members", JSON.stringify(tempMember));
+    }
     setMembers(JSON.parse(localStorage.getItem("members")));
     // console.log(JSON.parse(localStorage.members));
   }, [localStorage.members]);

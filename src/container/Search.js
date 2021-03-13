@@ -20,6 +20,10 @@ const Search = ({ members, setForm, setStatus, setSearch }) => {
     setSearch(e.target.value);
     console.log("Filtered : " + filteredMembers);
   };
+  const resetSearch = (e) => {
+    e.target.value = "";
+    setSearch("");
+  };
   const statusHandler = (e) => {
     setStatus(e.target.value);
   };
@@ -28,6 +32,7 @@ const Search = ({ members, setForm, setStatus, setSearch }) => {
     <>
       <div className="input-group searchdiv">
         <input
+          onClick={resetSearch}
           onKeyUp={searchHandler}
           type="text"
           name="search"

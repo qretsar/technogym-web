@@ -1,8 +1,14 @@
 import React from "react";
 
-const MemberRender = ({ member, setForm, filteredMembers, setMembers }) => {
+const MemberRender = ({
+  member,
+  setForm,
+  filteredMembers,
+  setMembers,
+  setSearch,
+}) => {
   let styleRed = {
-    background: "#df4459bc",
+    background: "rgb(223 68 89)",
     color: "white",
   };
   let styleBlue = {
@@ -16,6 +22,7 @@ const MemberRender = ({ member, setForm, filteredMembers, setMembers }) => {
       instagram: member.instagram,
       viber: member.viber,
     });
+    setSearch("");
   };
   const deleteButtonHandler = (e) => {
     console.log();
@@ -26,20 +33,29 @@ const MemberRender = ({ member, setForm, filteredMembers, setMembers }) => {
     setMembers(allMembers);
     localStorage.setItem("members", JSON.stringify(allMembers));
   };
+
   return (
-    <tr style={member.active ? styleBlue : styleRed}>
+    <tr
+      onDoubleClick={selectButtonHandler}
+      style={member.active ? styleBlue : styleRed}
+    >
       <td>{member.ime}</td>
       <td>{member.prezime}</td>
       <td>{member.instagram}</td>
       <td>{member.viber}</td>
       <td>{member.valid}</td>
-      <td>
+      {/* <td>
         <button onClick={selectButtonHandler} className="btn btn-info">
           <i className="fas fa-check"></i>
         </button>
-      </td>
+      </td> */}
       <td>
-        <button onDoubleClick={deleteButtonHandler} className="btn btn-danger">
+        <button
+          onDoubleClick={deleteButtonHandler}
+          className={`" ${
+            member.active ? "btn btn-danger" : "btn btn-warning"
+          }`}
+        >
           <i className="fas fa-trash"></i>
         </button>
       </td>

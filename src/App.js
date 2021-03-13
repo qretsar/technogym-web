@@ -116,6 +116,7 @@ function App() {
         filteredMembers={filteredMembers}
         setMembers={setMembers}
         setForm={setForm}
+        setSearch={setSearch}
       />
     </div>
   );

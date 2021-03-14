@@ -1,5 +1,5 @@
 import React from "react";
-
+import firebase from "../firebase";
 const MemberRender = ({
   member,
   setForm,
@@ -25,14 +25,23 @@ const MemberRender = ({
     });
     setSearch("");
   };
+  // const onDelete = () => {
+  //   const db = firebase.firestore();
+  //   db.collection("spells").doc(spell.id).delete();
+  // };
   const deleteButtonHandler = (e) => {
-    console.log();
-    let allMembers = filteredMembers.filter(
+    let index = filteredMembers.findIndex(
       (member) =>
-        member.viber !== e.target.closest("tr").childNodes[3].innerText
+        member.viber === e.target.closest("tr").childNodes[3].innerText
     );
-    setMembers(allMembers);
-    localStorage.setItem("members", JSON.stringify(allMembers));
+    let id = filteredMembers[index].id;
+
+    console.log(`${index} i id ${id}`);
+    const db = firebase.firestore();
+    db.collection("members").doc(id).delete();
+
+    // setMembers(allMembers);
+    // localStorage.setItem("members", JSON.stringify(allMembers));
     resetForm();
   };
 
@@ -53,7 +62,7 @@ const MemberRender = ({
       </td> */}
       <td>
         <button
-          onDoubleClick={deleteButtonHandler}
+          onClick={deleteButtonHandler}
           className={`" ${
             member.active ? "btn btn-danger" : "btn btn-warning"
           }`}

@@ -1,5 +1,7 @@
 import React from "react";
 import firebase from "../firebase";
+import { format, parse } from "date-fns";
+
 const MemberRender = ({
   member,
   setForm,
@@ -16,7 +18,7 @@ const MemberRender = ({
     background: "",
   };
   const selectButtonHandler = (e) => {
-    console.log(e.target.closest("tr").childNodes[3].innerText);
+    // console.log(e.target.closest("tr").childNodes[3].innerText);
     setForm({
       ime: member.ime,
       prezime: member.prezime,
@@ -36,7 +38,7 @@ const MemberRender = ({
     );
     let id = filteredMembers[index].id;
 
-    console.log(`${index} i id ${id}`);
+    // console.log(`${index} i id ${id}`);
     const db = firebase.firestore();
     db.collection("members").doc(id).delete();
 
@@ -54,7 +56,8 @@ const MemberRender = ({
       <td>{member.prezime}</td>
       <td>{member.instagram}</td>
       <td>{member.viber}</td>
-      <td>{member.valid}</td>
+      {/* {console.log(member.valid)} */}
+      <td>{format(member.valid.toDate(), "dd-MM-yyyy")}</td>
       {/* <td>
         <button onClick={selectButtonHandler} className="btn btn-info">
           <i className="fas fa-check"></i>

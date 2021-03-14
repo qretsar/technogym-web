@@ -7,6 +7,7 @@ import { format, parse } from "date-fns";
 import Form from "./container/Form";
 import Search from "./container/Search";
 import MemberList from "./components/MemberList";
+import firebase from "./firebase";
 
 ////
 function App() {
@@ -17,7 +18,7 @@ function App() {
     instagram: "",
     viber: "",
     datum: "",
-    uplata: "0",
+    uplata: "",
     active: "",
   });
   const [members, setMembers] = useState([
@@ -29,39 +30,25 @@ function App() {
       active: false,
     },
   ]);
+
   const [status, setStatus] = useState("svi");
   const [filteredMembers, setFilteredMembers] = useState([]);
   const [search, setSearch] = useState("");
   //EFFECT
+  const fetchFirestoreData = async (params) => {
+    const db = firebase.firestore();
+    const data = await db.collection("members").get();
+    setMembers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
   useEffect(() => {
-    loadMembersFromLS();
-    // console.log(JSON.parse(localStorage.members));
-  }, [localStorage.members]);
+    fetchFirestoreData();
+  }, [form]);
   useEffect(() => {
     // saveLocalTodos();
     filterHandler();
-    console.log(search);
+    // console.log(search);
   }, [members, search, status]);
   //FUNCTIONS
-  const loadMembersFromLS = () => {
-    let tempMember = [
-      {
-        ime: "Lana",
-        prezime: "Kucurski",
-        instagram: "lanaban",
-        viber: "394349",
-        uplata: "45",
-        datum: "13-03-2021",
-        valid: "13-07-2020",
-        id: 1000.2788200979525,
-        active: false,
-      },
-    ];
-    if (localStorage.members === undefined) {
-      localStorage.setItem("members", JSON.stringify(tempMember));
-    }
-    setMembers(JSON.parse(localStorage.getItem("members")));
-  };
   const filterHandler = () => {
     let activeMembers = members.map((member) => {
       let validToCompare = parse(member.valid, "dd-MM-yyyy", new Date());
@@ -125,7 +112,7 @@ function App() {
   return (
     <div className="container my-5">
       <div className="header">
-        <img src={logo} class="img-fluid" alt="Responsive image" />
+        <img src={logo} className="img-fluid" alt="Responsive image" />
         <p>Fitness Studio</p>
       </div>
 
@@ -134,7 +121,7 @@ function App() {
         setForm={setForm}
         members={members}
         setMembers={setMembers}
-        loadMembersFromLS={loadMembersFromLS}
+        // loadMembersFromLS={loadMembersFromLS}
         resetForm={resetForm}
       />
       <Search

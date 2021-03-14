@@ -10,7 +10,7 @@ const MemberList = ({
 }) => {
   return (
     <div className="table-responsive">
-      <table id="table-all" className="table table-striped table-hover">
+      <table id="flip-scroll" className="table table-striped table-hover">
         <thead className="thead-light">
           <tr>
             <th scope="col">Ime</th>

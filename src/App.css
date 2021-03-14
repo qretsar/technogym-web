@@ -115,7 +115,8 @@ p {
 	#flip-scroll tbody { display: block; width: auto; position: relative; overflow-x: auto; white-space: nowrap; }
 	#flip-scroll thead tr { display: block; }
 	#flip-scroll th { display: block; text-align: right; }
-	#flip-scroll tbody tr { display: inline-block; vertical-align: top; }
+	#flip-scroll tbody tr { display: inline-block; vertical-align: top;  box-sizing: border-box;
+    box-shadow: 0 1rem 0.2rem rgba(0, 0, 0, 0.6);}
 	#flip-scroll td { display: block;  text-align: left; }
  
 }

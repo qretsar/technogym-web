@@ -1,5 +1,5 @@
 import React from "react";
-import { format, parse } from "date-fns";
+import { format, parse, addMonths } from "date-fns";
 import firebase from "../firebase";
 
 const Form = ({
@@ -11,14 +11,6 @@ const Form = ({
   setSwitcher,
   // loadMembersFromLS,
 }) => {
-  const setSubscriptionDate = (inpDatum, brojUplacenihMeseci) => {
-    let datum = new Date(
-      inpDatum.setMonth(inpDatum.getMonth() + brojUplacenihMeseci)
-    );
-    console.log("Updated date: " + datum);
-    datum = format(datum, "dd-MM-yyyy");
-    return datum;
-  };
   const inputChangeHandler = (e) => {
     const value = e.target.value;
 
@@ -34,7 +26,9 @@ const Form = ({
   };
   const fbExists = () => {
     //Checks if user already exists
-    let brojUplacenihMeseci = Math.ceil(form.uplata / 30);
+    let brojUplacenihMeseci = Math.ceil(
+      form.uplata == "" ? 0 : form.uplata / 30
+    );
     // loadMembersFromLS();
     const db = firebase.firestore();
     if (members.some((member) => member.ime === form.ime)) {
@@ -48,10 +42,7 @@ const Form = ({
               prezime: form.prezime,
               instagram: form.instagram,
               viber: form.viber,
-              valid: setSubscriptionDate(
-                parse(item.valid, "dd-MM-yyyy", new Date()),
-                brojUplacenihMeseci
-              ),
+              valid: addMonths(item.valid.toDate(), brojUplacenihMeseci),
             });
         }
         return item;
@@ -64,9 +55,9 @@ const Form = ({
         prezime: form.prezime,
         instagram: form.instagram,
         viber: form.viber,
-        uplata: form.uplata,
-        datum: format(new Date(), "dd-MM-yyyy"),
-        valid: setSubscriptionDate(new Date(), brojUplacenihMeseci),
+        uplata: form.uplata == "" ? 0 : form.uplata,
+        datum: new Date(),
+        valid: addMonths(new Date(), brojUplacenihMeseci),
         active: true,
       };
       // setMembers([...members, members.push(newMember)]);
@@ -74,53 +65,9 @@ const Form = ({
       // addToFirebase(members);
     }
   };
-  const ifExits = () => {
-    //Checks if user already exists
-    let brojUplacenihMeseci = Math.ceil(form.uplata / 30);
-    // loadMembersFromLS();
-    if (members.some((member) => member.ime === form.ime)) {
-      let editedMembers = members.map((item) => {
-        if (item.ime === form.ime) {
-          return {
-            ...item,
-            ime: form.ime,
-            prezime: form.prezime,
-            instagram: form.instagram,
-            viber: form.viber,
-            valid: setSubscriptionDate(
-              parse(item.valid, "dd-MM-yyyy", new Date()),
-              brojUplacenihMeseci
-            ),
-          };
-        }
-        return item;
-      });
-      console.log(editedMembers);
-      setMembers(editedMembers);
-      localStorage.setItem("members", JSON.stringify(editedMembers));
 
-      console.log(JSON.parse(localStorage.members));
-    } else {
-      setMembers([
-        ...members,
-        members.push({
-          ime: form.ime,
-          prezime: form.prezime,
-          instagram: form.instagram,
-          viber: form.viber,
-          uplata: form.uplata,
-          datum: format(new Date(), "dd-MM-yyyy"),
-          valid: setSubscriptionDate(new Date(), brojUplacenihMeseci),
-          id: Math.random() + 1000,
-          active: true,
-        }),
-      ]);
-      localStorage.setItem("members", JSON.stringify(members));
-    }
-  };
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    // ifExits();
     fbExists();
 
     resetForm();

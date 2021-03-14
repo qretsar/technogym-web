@@ -22,13 +22,13 @@ function App() {
     active: "",
   });
   const [members, setMembers] = useState([
-    {
-      ime: "Stefan",
-      prezime: "Kucurski",
-      viber: "053",
-      instagram: "john_diamond",
-      active: false,
-    },
+    // {
+    //   ime: "Stefan",
+    //   prezime: "Kucurski",
+    //   viber: "053",
+    //   instagram: "john_diamond",
+    //   active: false,
+    // },
   ]);
 
   const [status, setStatus] = useState("svi");
@@ -42,17 +42,16 @@ function App() {
   };
   useEffect(() => {
     fetchFirestoreData();
-  }, [form]);
+  }, [form, status, filteredMembers]);
   useEffect(() => {
     // saveLocalTodos();
     filterHandler();
     // console.log(search);
   }, [members, search, status]);
   //FUNCTIONS
-  const filterHandler = () => {
-    let activeMembers = members.map((member) => {
-      let validToCompare = parse(member.valid, "dd-MM-yyyy", new Date());
-      if (validToCompare > new Date()) {
+  const filterHandler = async () => {
+    let activeMembers = await members.map((member) => {
+      if (member.valid.toDate() > new Date()) {
         return {
           ...member,
           active: true,

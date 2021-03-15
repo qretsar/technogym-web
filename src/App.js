@@ -47,7 +47,7 @@ function App() {
   // [form, status, filteredMembers]);
   useEffect(() => {
     filterHandler();
-  }, [setMembers, members, search, status]);
+  }, [setMembers, members, search, status, jelena]);
   //FUNCTIONS
   const filterHandler = async () => {
     let activeMembers = await members.map((member) => {

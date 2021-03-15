@@ -44,12 +44,13 @@ const Form = ({
               viber: form.viber,
               valid: addMonths(item.valid.toDate(), brojUplacenihMeseci),
             });
-          setMembers(editedMembers);
+          // setMembers(editedMembers);
         }
         return item;
       });
 
-      // setMembers(editedMembers);
+      setMembers(editedMembers);
+      setJelena("1");
     } else {
       let newMember = {
         ime: form.ime,
@@ -72,6 +73,7 @@ const Form = ({
   const formSubmitHandler = (e) => {
     e.preventDefault();
     fbExists();
+    setJelena("1");
 
     resetForm();
   };

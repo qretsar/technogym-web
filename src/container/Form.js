@@ -1,5 +1,5 @@
 import React from "react";
-import { format, parse, addMonths } from "date-fns";
+import { addMonths } from "date-fns";
 import firebase from "../firebase";
 
 const Form = ({
@@ -8,7 +8,7 @@ const Form = ({
   members,
   setMembers,
   resetForm,
-  setSwitcher,
+  setJelena,
   // loadMembersFromLS,
 }) => {
   const inputChangeHandler = (e) => {
@@ -20,14 +20,14 @@ const Form = ({
       [e.target.name]: value,
     });
   };
-  const addToFirebase = (selectedMember) => {
-    const db = firebase.firestore();
-    db.collection("members").add(selectedMember);
-  };
+  // const addToFirebase = (selectedMember) => {
+  //   const db = firebase.firestore();
+  //   db.collection("members").add(selectedMember);
+  // };
   const fbExists = () => {
     //Checks if user already exists
     let brojUplacenihMeseci = Math.ceil(
-      form.uplata == "" ? 0 : form.uplata / 30
+      form.uplata === "" ? 0 : form.uplata / 30
     );
     // loadMembersFromLS();
     const db = firebase.firestore();
@@ -44,6 +44,7 @@ const Form = ({
               viber: form.viber,
               valid: addMonths(item.valid.toDate(), brojUplacenihMeseci),
             });
+          setMembers(editedMembers);
         }
         return item;
       });
@@ -55,14 +56,16 @@ const Form = ({
         prezime: form.prezime,
         instagram: form.instagram,
         viber: form.viber,
-        uplata: form.uplata == "" ? 0 : form.uplata,
+        uplata: form.uplata === "" ? 0 : form.uplata,
         datum: new Date(),
-        valid: addMonths(new Date(), brojUplacenihMeseci),
+        valid: addMonths(Date.now(), brojUplacenihMeseci),
         active: true,
       };
-      // setMembers([...members, members.push(newMember)]);
+      // setMembers([...members, newMember]);
       db.collection("members").doc().set(newMember);
+      // setMembers([...members])
       // addToFirebase(members);
+      setJelena("1");
     }
   };
 

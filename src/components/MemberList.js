@@ -3,6 +3,7 @@ import MemberRender from "../container/MemberRender";
 
 const MemberList = ({
   filteredMembers,
+  members,
   setMembers,
   setForm,
   resetForm,
@@ -30,6 +31,7 @@ const MemberList = ({
               setForm={setForm}
               resetForm={resetForm}
               filteredMembers={filteredMembers}
+              members={members}
               setMembers={setMembers}
               setSearch={setSearch}
             />

@@ -1,11 +1,12 @@
 import React from "react";
 import firebase from "../firebase";
-import { format, parse } from "date-fns";
+import { format } from "date-fns";
 
 const MemberRender = ({
   member,
   setForm,
   filteredMembers,
+  members,
   setMembers,
   setSearch,
   resetForm,
@@ -41,8 +42,8 @@ const MemberRender = ({
     // console.log(`${index} i id ${id}`);
     const db = firebase.firestore();
     db.collection("members").doc(id).delete();
-
-    // setMembers(allMembers);
+    let memberToDelete = members.filter((member) => member.id !== id);
+    setMembers(memberToDelete);
     // localStorage.setItem("members", JSON.stringify(allMembers));
     resetForm();
   };

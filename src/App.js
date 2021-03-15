@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import "./App.css";
 import logo from "./img/fitx.png";
-import { format, parse } from "date-fns";
+
 //Importing Components
 import Form from "./container/Form";
 import Search from "./container/Search";
@@ -30,7 +30,7 @@ function App() {
     //   active: false,
     // },
   ]);
-
+  const [jelena, setJelena] = useState("");
   const [status, setStatus] = useState("svi");
   const [filteredMembers, setFilteredMembers] = useState([]);
   const [search, setSearch] = useState("");
@@ -42,12 +42,12 @@ function App() {
   };
   useEffect(() => {
     fetchFirestoreData();
-  }, [form, status, filteredMembers]);
+    console.log("Povlacim iz baze", new Date());
+  }, [setMembers, jelena]);
+  // [form, status, filteredMembers]);
   useEffect(() => {
-    // saveLocalTodos();
     filterHandler();
-    // console.log(search);
-  }, [members, search, status]);
+  }, [setMembers, members, search, status]);
   //FUNCTIONS
   const filterHandler = async () => {
     let activeMembers = await members.map((member) => {
@@ -111,7 +111,7 @@ function App() {
   return (
     <div className="container my-5">
       <div className="header">
-        <img src={logo} className="img-fluid" alt="Responsive image" />
+        <img src={logo} className="img-fluid" alt="Responsive" />
         <p>Fitness Studio</p>
       </div>
 
@@ -122,6 +122,7 @@ function App() {
         setMembers={setMembers}
         // loadMembersFromLS={loadMembersFromLS}
         resetForm={resetForm}
+        setJelena={setJelena}
       />
       <Search
         members={members}
@@ -131,6 +132,7 @@ function App() {
       />
       <MemberList
         filteredMembers={filteredMembers}
+        members={members}
         setMembers={setMembers}
         setForm={setForm}
         setSearch={setSearch}

@@ -45,9 +45,10 @@ function App() {
     console.log("Povlacim iz baze", new Date());
   }, [setMembers, jelena]);
   // [form, status, filteredMembers]);
-  useEffect(() => {
-    filterHandler();
-  }, [setMembers, members, search, status, jelena]);
+  // useEffect(() => {
+  //   filterHandler();
+
+  // }, [setMembers, members, search, status, jelena]);
   //FUNCTIONS
   const filterHandler = () => {
     let activeMembers = members.map((member) => {

@@ -47,6 +47,7 @@ function App() {
   // [form, status, filteredMembers]);
   useEffect(() => {
     filterHandler();
+    console.log("confilict");
   }, [setMembers, members, search, status, jelena]);
   //FUNCTIONS
   const filterHandler = async () => {

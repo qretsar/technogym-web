@@ -45,10 +45,10 @@ function App() {
     console.log("Povlacim iz baze", new Date());
   }, [setMembers, jelena]);
   // [form, status, filteredMembers]);
-  // useEffect(() => {
-  //   filterHandler();
-
-  // }, [setMembers, members, search, status, jelena]);
+  useEffect(() => {
+    filterHandler();
+    console.log("confilict");
+  }, [setMembers, members, search, status, jelena]);
   //FUNCTIONS
   const filterHandler = () => {
     let activeMembers = members.map((member) => {
@@ -124,7 +124,6 @@ function App() {
         setForm={setForm}
         members={members}
         setMembers={setMembers}
-        handleSetMembers={handleSetMembers}
         // loadMembersFromLS={loadMembersFromLS}
         resetForm={resetForm}
         setJelena={setJelena}

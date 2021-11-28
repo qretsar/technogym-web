@@ -58,7 +58,7 @@ const MemberRender = ({
       <td>{member.instagram}</td>
       <td>{member.viber}</td>
       {/* {console.log(member.valid)} */}
-      <td>{format(member.valid.toDate(), "dd-MM-yyyy")}</td>
+      <td>{ new Date(member.valid.seconds * 1000).toLocaleString()}</td>
       {/* <td>
         <button onClick={selectButtonHandler} className="btn btn-info">
           <i className="fas fa-check"></i>

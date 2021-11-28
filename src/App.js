@@ -49,9 +49,11 @@ function App() {
     filterHandler();
   }, [setMembers, members, search, status, jelena]);
   //FUNCTIONS
-  const filterHandler = async () => {
-    let activeMembers = await members.map((member) => {
-      if (member.valid.toDate() > new Date()) {
+  const filterHandler = () => {
+    let activeMembers = members.map((member) => {
+      console.log(member);
+      console.log(new Date(member.valid.seconds * 1000));
+      if (new Date(member.valid.seconds * 1000) > new Date()) {
         return {
           ...member,
           active: true,
@@ -96,6 +98,7 @@ function App() {
       );
     }
   };
+
   const resetForm = () => {
     setForm({
       ime: "",
@@ -120,6 +123,7 @@ function App() {
         setForm={setForm}
         members={members}
         setMembers={setMembers}
+        handleSetMembers={handleSetMembers}
         // loadMembersFromLS={loadMembersFromLS}
         resetForm={resetForm}
         setJelena={setJelena}

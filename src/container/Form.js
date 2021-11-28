@@ -59,10 +59,12 @@ const Form = ({
         viber: form.viber,
         uplata: form.uplata === "" ? 0 : form.uplata,
         datum: new Date(),
-        valid: addMonths(Date.now(), brojUplacenihMeseci),
+        valid: {
+          seconds: addMonths(new Date(Date.now()), brojUplacenihMeseci),
+        },
         active: true,
       };
-      // setMembers([...members, newMember]);
+      setMembers([...members, newMember]);
       db.collection("members").doc().set(newMember);
       // setMembers([...members])
       // addToFirebase(members);

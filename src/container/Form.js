@@ -16,13 +16,10 @@ const Form = ({
 
     setForm({
       ...form,
-      //e.target.name se odnoi na input name att
       [e.target.name]: value,
     });
   };
-  // const addToFirebase = (selectedMember) => {
-  //   const db = firebase.firestore();
-  //   db.collection("members").add(selectedMember);
+
   // };
   const fbExists = () => {
     //Checks if user already exists
@@ -34,7 +31,11 @@ const Form = ({
     if (members.some((member) => member.ime === form.ime)) {
       let editedMembers = members.map((item) => {
         if (item.ime === form.ime) {
-          db.collection("members")
+          item.expirationDate = addMonths(
+            item.expirationDate,
+            brojUplacenihMeseci
+          );
+          db.collection("membersA")
             .doc(item.id)
             .set({
               ...item,
@@ -42,15 +43,16 @@ const Form = ({
               prezime: form.prezime,
               instagram: form.instagram,
               viber: form.viber,
-              valid: addMonths(item.valid.toDate(), brojUplacenihMeseci),
+              expirationDate: addMonths(
+                item.expirationDate,
+                brojUplacenihMeseci
+              ),
             });
-          // setMembers(editedMembers);
         }
         return item;
       });
-
+      console.log("Setuje");
       setMembers(editedMembers);
-      setJelena("1");
     } else {
       let newMember = {
         ime: form.ime,
@@ -59,24 +61,17 @@ const Form = ({
         viber: form.viber,
         uplata: form.uplata === "" ? 0 : form.uplata,
         datum: new Date(),
-        valid: {
-          seconds: addMonths(new Date(Date.now()), brojUplacenihMeseci),
-        },
+        expirationDate: addMonths(new Date().getTime(), brojUplacenihMeseci),
         active: true,
       };
       setMembers([...members, newMember]);
-      db.collection("members").doc().set(newMember);
-      // setMembers([...members])
-      // addToFirebase(members);
-      setJelena("1");
+      db.collection("membersA").doc().set(newMember);
     }
   };
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
     fbExists();
-    setJelena("1");
-
     resetForm();
   };
 

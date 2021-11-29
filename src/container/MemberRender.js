@@ -11,6 +11,7 @@ const MemberRender = ({
   setSearch,
   resetForm,
 }) => {
+  console.log(member);
   let styleRed = {
     background: "rgb(223 68 89)",
     color: "white",
@@ -41,7 +42,7 @@ const MemberRender = ({
 
     // console.log(`${index} i id ${id}`);
     const db = firebase.firestore();
-    db.collection("members").doc(id).delete();
+    db.collection("membersA").doc(id).delete();
     let memberToDelete = members.filter((member) => member.id !== id);
     setMembers(memberToDelete);
     // localStorage.setItem("members", JSON.stringify(allMembers));
@@ -58,7 +59,8 @@ const MemberRender = ({
       <td>{member.instagram}</td>
       <td>{member.viber}</td>
       {/* {console.log(member.valid)} */}
-      <td>{ new Date(member.valid.seconds * 1000).toLocaleString()}</td>
+
+      <td>{member.expirationDate.toLocaleDateString()}</td>
       {/* <td>
         <button onClick={selectButtonHandler} className="btn btn-info">
           <i className="fas fa-check"></i>

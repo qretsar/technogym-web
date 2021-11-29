@@ -37,12 +37,18 @@ function App() {
   //EFFECT
   const fetchFirestoreData = async (params) => {
     const db = firebase.firestore();
-    const data = await db.collection("members").get();
-    setMembers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    const data = await db.collection("membersA").get();
+    setMembers(
+      data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+        expirationDate: doc.data().expirationDate.toDate(),
+      }))
+    );
   };
   useEffect(() => {
     fetchFirestoreData();
-    console.log("Povlacim iz baze", new Date());
+    // console.log("Povlacim iz baze", new Date());
   }, [setMembers, jelena]);
   // [form, status, filteredMembers]);
   useEffect(() => {
@@ -52,9 +58,10 @@ function App() {
   //FUNCTIONS
   const filterHandler = () => {
     let activeMembers = members.map((member) => {
-      console.log(member);
-      console.log(new Date(member.valid.seconds * 1000));
-      if (new Date(member.valid.seconds * 1000) > new Date()) {
+      // console.log(member);
+      // console.log(new Date(member.valid.seconds * 1000));
+
+      if (member.expirationDate > new Date()) {
         return {
           ...member,
           active: true,
@@ -72,20 +79,20 @@ function App() {
         setFilteredMembers(
           activeMembers.filter((member) => member.active === true)
         );
-        console.log(filteredMembers);
+        // console.log(filteredMembers);
         break;
       case "neaktivni":
         setFilteredMembers(
           activeMembers.filter((member) => member.active === false)
         );
-        console.log(filteredMembers);
+        // console.log(filteredMembers);
         break;
       default:
         setFilteredMembers(activeMembers);
         break;
     }
     if (search.length > 0) {
-      console.log("search: " + search);
+      // console.log("search: " + search);
       setStatus("svi");
       setFilteredMembers(
         activeMembers.filter((member) => {

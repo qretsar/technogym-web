@@ -42,6 +42,10 @@ p {
 .input-group {
   padding: 1rem;
 }
+.table td {
+  padding: 0.25rem !important;
+  vertical-align: middle !important;
+}
 /* .header > p {
   color: gray;
   padding-left: 0rem;

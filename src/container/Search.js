@@ -37,7 +37,6 @@ const Search = ({
     let neaktivni = filteredMembers.filter(
       (member) => member.active === boolean
     );
-    console.log(neaktivni);
     return neaktivni.length;
   };
   // console.log(`hej ${filteredMembers.activelength}`);

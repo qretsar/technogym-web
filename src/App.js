@@ -30,7 +30,6 @@ function App() {
     //   active: false,
     // },
   ]);
-  const [jelena, setJelena] = useState("");
   const [status, setStatus] = useState("svi");
   const [filteredMembers, setFilteredMembers] = useState([]);
   const [search, setSearch] = useState("");
@@ -48,19 +47,10 @@ function App() {
   };
   useEffect(() => {
     fetchFirestoreData();
-    // console.log("Povlacim iz baze", new Date());
-  }, [setMembers, jelena]);
-  // [form, status, filteredMembers]);
+  }, [setMembers]);
+  // Members filtering function in useEffect
   useEffect(() => {
-    filterHandler();
-    console.log("confilict");
-  }, [setMembers, members, search, status, jelena]);
-  //FUNCTIONS
-  const filterHandler = () => {
     let activeMembers = members.map((member) => {
-      // console.log(member);
-      // console.log(new Date(member.valid.seconds * 1000));
-
       if (member.expirationDate > new Date()) {
         return {
           ...member,
@@ -73,26 +63,22 @@ function App() {
         };
       }
     });
-
     switch (status) {
       case "aktivni":
         setFilteredMembers(
           activeMembers.filter((member) => member.active === true)
         );
-        // console.log(filteredMembers);
         break;
       case "neaktivni":
         setFilteredMembers(
           activeMembers.filter((member) => member.active === false)
         );
-        // console.log(filteredMembers);
         break;
       default:
         setFilteredMembers(activeMembers);
         break;
     }
     if (search.length > 0) {
-      // console.log("search: " + search);
       setStatus("svi");
       setFilteredMembers(
         activeMembers.filter((member) => {
@@ -105,8 +91,8 @@ function App() {
         })
       );
     }
-  };
-
+  }, [setMembers, members, search, status]);
+  //FUNCTIONS
   const resetForm = () => {
     setForm({
       ime: "",
@@ -133,13 +119,13 @@ function App() {
         setMembers={setMembers}
         // loadMembersFromLS={loadMembersFromLS}
         resetForm={resetForm}
-        setJelena={setJelena}
       />
       <Search
         members={members}
         setForm={setForm}
         setStatus={setStatus}
         setSearch={setSearch}
+        filteredMembers={filteredMembers}
       />
       <MemberList
         filteredMembers={filteredMembers}

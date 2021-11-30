@@ -1,5 +1,11 @@
 import React from "react";
-const Search = ({ members, setForm, setStatus, setSearch }) => {
+const Search = ({
+  members,
+  setForm,
+  setStatus,
+  setSearch,
+  filteredMembers,
+}) => {
   const searchHandler = (e) => {
     const filteredMembers = members.filter((member) => {
       return (
@@ -27,7 +33,14 @@ const Search = ({ members, setForm, setStatus, setSearch }) => {
   const statusHandler = (e) => {
     setStatus(e.target.value);
   };
-
+  const activeInactiveMembers = (boolean) => {
+    let neaktivni = filteredMembers.filter(
+      (member) => member.active === boolean
+    );
+    console.log(neaktivni);
+    return neaktivni.length;
+  };
+  // console.log(`hej ${filteredMembers.activelength}`);
   return (
     <>
       <div className="input-group searchdiv">
@@ -47,8 +60,23 @@ const Search = ({ members, setForm, setStatus, setSearch }) => {
           <option value="neaktivni">Neaktivni</option>
         </select>
       </div>
-      <p className="broj-clanova">Ukupan broj korisnika: {members.length}</p>
+      <div style={styles.usersCount}>
+        <p className="broj-clanova">Ukupan broj korisnika: {members.length}</p>
+        <p className="broj-clanova">
+          Aktivnih korisnika: {activeInactiveMembers(true)}
+        </p>
+        <p className="broj-clanova">
+          Neaktivnih korisnika: {activeInactiveMembers(false)}
+        </p>
+      </div>
     </>
   );
+};
+const styles = {
+  usersCount: {
+    display: "flex",
+    // padding: "0.1rem",
+    justifyContent: "space-around",
+  },
 };
 export default Search;

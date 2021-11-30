@@ -1,6 +1,5 @@
 import React from "react";
 import firebase from "../firebase";
-import { format } from "date-fns";
 
 const MemberRender = ({
   member,
@@ -11,9 +10,8 @@ const MemberRender = ({
   setSearch,
   resetForm,
 }) => {
-  console.log(member);
   let styleRed = {
-    background: "rgb(223 68 89)",
+    background: "rgb(110 110 110)",
     color: "white",
   };
   let styleBlue = {
@@ -29,10 +27,7 @@ const MemberRender = ({
     });
     setSearch("");
   };
-  // const onDelete = () => {
-  //   const db = firebase.firestore();
-  //   db.collection("spells").doc(spell.id).delete();
-  // };
+
   const deleteButtonHandler = (e) => {
     let index = filteredMembers.findIndex(
       (member) =>
@@ -40,12 +35,11 @@ const MemberRender = ({
     );
     let id = filteredMembers[index].id;
 
-    // console.log(`${index} i id ${id}`);
     const db = firebase.firestore();
     db.collection("membersA").doc(id).delete();
     let memberToDelete = members.filter((member) => member.id !== id);
     setMembers(memberToDelete);
-    // localStorage.setItem("members", JSON.stringify(allMembers));
+
     resetForm();
   };
 
@@ -69,8 +63,7 @@ const MemberRender = ({
       <td>
         <button
           onClick={deleteButtonHandler}
-          className={`" ${
-            member.active ? "btn btn-danger" : "btn btn-warning"
+          className={`" btn btn-danger
           }`}
         >
           <i className="fas fa-trash"></i>

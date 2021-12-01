@@ -8,6 +8,7 @@ import Form from "./container/Form";
 import Search from "./container/Search";
 import MemberList from "./components/MemberList";
 import firebase from "./firebase";
+import { te } from "date-fns/locale";
 
 ////
 function App() {
@@ -37,13 +38,19 @@ function App() {
   const fetchFirestoreData = async (params) => {
     const db = firebase.firestore();
     const data = await db.collection("membersA").get();
-    setMembers(
-      data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-        expirationDate: doc.data().expirationDate.toDate(),
-      }))
+    let tempMembers = data.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+      expirationDate: doc.data().expirationDate.toDate(),
+    }));
+    tempMembers.sort((a, b) =>
+      a.expirationDate > b.expirationDate
+        ? -1
+        : b.expirationDate > a.expirationDate
+        ? 1
+        : 0
     );
+    setMembers(tempMembers);
   };
   useEffect(() => {
     fetchFirestoreData();

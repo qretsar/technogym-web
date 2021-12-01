@@ -8,7 +8,6 @@ import Form from "./container/Form";
 import Search from "./container/Search";
 import MemberList from "./components/MemberList";
 import firebase from "./firebase";
-import { te } from "date-fns/locale";
 
 ////
 function App() {

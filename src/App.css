@@ -5,7 +5,6 @@
 .container-sm {
   position: relative;
   top: 0.1rem;
-  /* min-width: 80%; */
   max-width: 100%;
   border-radius: 10px;
   /* border: 10px solid red; */
@@ -20,13 +19,15 @@
 p {
   color: gray;
   padding-left: 1rem;
+  padding-top: 1rem;
 }
 .img-fluid {
   width: 15%;
 }
 .form {
   /* box-shadow: 0 0.5rem 0.4rem rgba(0, 0, 0, 0.6); */
-  padding: 1rem;
+  padding-bottom: 1rem;
+  /* padding: 1rem; */
 }
 .form-select {
   color: gray;
@@ -35,15 +36,15 @@ p {
   margin-bottom: -2.2rem;
 }
 .table-responsive {
-  border-radius: 1.2rem;
-  padding: 1rem;
+  /* border-radius: 1.2rem; */
+  /* padding: 1rem; */
   /* box-shadow: 0 0.5rem 0.4rem rgb(0 0 0 / 60%); */
 }
 .input-group {
-  padding: 1rem;
+  padding: 0;
 }
 .table td {
-  padding: 0.25rem !important;
+  /* padding: 0.25rem !important; */
   vertical-align: middle !important;
 }
 /* .header > p {

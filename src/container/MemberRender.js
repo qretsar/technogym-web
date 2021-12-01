@@ -55,11 +55,7 @@ const MemberRender = ({
       {/* {console.log(member.valid)} */}
 
       <td>{member.expirationDate.toLocaleDateString()}</td>
-      {/* <td>
-        <button onClick={selectButtonHandler} className="btn btn-info">
-          <i className="fas fa-check"></i>
-        </button>
-      </td> */}
+
       <td>
         <button
           onClick={deleteButtonHandler}

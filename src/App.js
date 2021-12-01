@@ -21,15 +21,7 @@ function App() {
     uplata: "",
     active: "",
   });
-  const [members, setMembers] = useState([
-    // {
-    //   ime: "Stefan",
-    //   prezime: "Kucurski",
-    //   viber: "053",
-    //   instagram: "john_diamond",
-    //   active: false,
-    // },
-  ]);
+  const [members, setMembers] = useState([]);
   const [status, setStatus] = useState("svi");
   const [filteredMembers, setFilteredMembers] = useState([]);
   const [search, setSearch] = useState("");
@@ -53,7 +45,7 @@ function App() {
   };
   useEffect(() => {
     fetchFirestoreData();
-  }, [setMembers]);
+  }, []);
   // Members filtering function in useEffect
   useEffect(() => {
     let activeMembers = members.map((member) => {
@@ -123,7 +115,6 @@ function App() {
         setForm={setForm}
         members={members}
         setMembers={setMembers}
-        // loadMembersFromLS={loadMembersFromLS}
         resetForm={resetForm}
       />
       <Search

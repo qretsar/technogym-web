@@ -11,7 +11,7 @@
   /* border: 10px solid red; */
   /* border: 0.2rem solid rgba(0, 0, 0, 0.404); */
   box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  /* box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6); */
   padding: 40px;
 }
 .searchdiv {
@@ -25,7 +25,7 @@ p {
   width: 15%;
 }
 .form {
-  box-shadow: 0 0.5rem 0.4rem rgba(0, 0, 0, 0.6);
+  /* box-shadow: 0 0.5rem 0.4rem rgba(0, 0, 0, 0.6); */
   padding: 1rem;
 }
 .form-select {
@@ -37,7 +37,7 @@ p {
 .table-responsive {
   border-radius: 1.2rem;
   padding: 1rem;
-  box-shadow: 0 0.5rem 0.4rem rgb(0 0 0 / 60%);
+  /* box-shadow: 0 0.5rem 0.4rem rgb(0 0 0 / 60%); */
 }
 .input-group {
   padding: 1rem;

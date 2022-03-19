@@ -1,5 +1,5 @@
 import React from "react";
-import { addMonths } from "date-fns";
+import { addMonths, format } from "date-fns";
 import firebase from "../firebase";
 
 const Form = ({
@@ -26,6 +26,14 @@ const Form = ({
     let brojUplacenihMeseci = Math.ceil(
       form.uplata === "" ? 0 : form.uplata / 30
     );
+    if (
+      form.ime.length < 2 ||
+      form.prezime.length < 2 ||
+      form.viber.length < 6
+    ) {
+      alert("Ime, prezime i broj telefona su obavezni");
+      return;
+    }
     // loadMembersFromLS();
     const db = firebase.firestore();
     if (members.some((member) => member.ime === form.ime)) {
@@ -41,7 +49,7 @@ const Form = ({
               ...item,
               ime: form.ime,
               prezime: form.prezime,
-              instagram: form.instagram,
+              // instagram: form.instagram,
               viber: form.viber,
               expirationDate: addMonths(
                 item.expirationDate,
@@ -57,11 +65,14 @@ const Form = ({
       let newMember = {
         ime: form.ime,
         prezime: form.prezime,
-        instagram: form.instagram,
+        // instagram: form.instagram,
         viber: form.viber,
         uplata: form.uplata === "" ? 0 : form.uplata,
-        datum: new Date(),
-        expirationDate: addMonths(new Date().getTime(), brojUplacenihMeseci),
+        datum: form.datum !== "" ? form.datum : new Date().toString(),
+        expirationDate: addMonths(
+          new Date(form.datum).getTime(),
+          brojUplacenihMeseci
+        ),
         active: true,
       };
       setMembers([...members, newMember]);
@@ -97,7 +108,7 @@ const Form = ({
             placeholder="prezime"
             required="required"
           />
-          <input
+          {/* <input
             name="instagram"
             value={form.instagram}
             onChange={inputChangeHandler}
@@ -105,14 +116,24 @@ const Form = ({
             type="text"
             placeholder="instagram"
             required
-          />
+          /> */}
           <input
             name="viber"
             value={form.viber}
             onChange={inputChangeHandler}
             className="form-control"
-            type="text"
-            placeholder="viber"
+            type="number"
+            placeholder="telefon"
+            required
+          />
+          <input
+            name="datum"
+            value={form.datum}
+            // defaultValue={new Date().toISOString().split("T")[0]}
+            onChange={inputChangeHandler}
+            className="form-control"
+            type="date"
+            // placeholder="telefon"
             required
           />
           <input

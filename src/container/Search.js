@@ -11,7 +11,7 @@ const Search = ({
       return (
         member.ime.toLowerCase().includes(e.target.value.toLowerCase()) ||
         member.prezime.toLowerCase().includes(e.target.value.toLowerCase()) ||
-        member.instagram.toLowerCase().includes(e.target.value.toLowerCase()) ||
+        // member.instagram.toLowerCase().includes(e.target.value.toLowerCase()) ||
         member.viber.toLowerCase().includes(e.target.value.toLowerCase())
       );
     });
@@ -19,7 +19,7 @@ const Search = ({
       setForm({
         ime: filteredMembers[0].ime,
         prezime: filteredMembers[0].prezime,
-        instagram: filteredMembers[0].instagram,
+        // instagram: filteredMembers[0].instagram,
         viber: filteredMembers[0].viber,
       });
     }

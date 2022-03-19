@@ -16,10 +16,9 @@ const MemberList = ({
           <tr>
             <th scope="col">Ime</th>
             <th scope="col">Prezime</th>
-            <th scope="col">instagram</th>
-            <th scope="col">viber</th>
+            <th scope="col">Telefon</th>
             <th scope="col">datum isteka</th>
-            {/* <th scope="col">Odaberi</th> */}
+            <th scope="col">Uredi</th>
             <th scope="col">Izbriši</th>
           </tr>
         </thead>

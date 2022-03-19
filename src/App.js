@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import "./App.css";
-import logo from "./img/fitx.png";
+import logo from "./img/logo.svg";
 
 //Importing Components
 import Form from "./container/Form";
@@ -46,10 +46,16 @@ function App() {
   useEffect(() => {
     fetchFirestoreData();
   }, []);
+  // function process(date) {
+  //   return format(date, "MM-dd-yy");
+  // }
   // Members filtering function in useEffect
   useEffect(() => {
     let activeMembers = members.map((member) => {
-      if (member.expirationDate > new Date()) {
+      if (
+        member.expirationDate.setHours(0, 0, 0, 0) >
+        new Date().setHours(0, 0, 0, 0)
+      ) {
         return {
           ...member,
           active: true,
@@ -83,7 +89,6 @@ function App() {
           return (
             member.ime.toLowerCase().includes(search.toLowerCase()) ||
             member.prezime.toLowerCase().includes(search.toLowerCase()) ||
-            member.instagram.toLowerCase().includes(search.toLowerCase()) ||
             member.viber.toLowerCase().includes(search.toLowerCase())
           );
         })
@@ -95,7 +100,7 @@ function App() {
     setForm({
       ime: "",
       prezime: "",
-      instagram: "",
+      // instagram: "",
       viber: "",
       datum: "",
       uplata: "0",

@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/technogym-web/static/css/main.fb4a06ef.chunk.css",
-    "main.js": "/technogym-web/static/js/main.9f68d699.chunk.js",
-    "main.js.map": "/technogym-web/static/js/main.9f68d699.chunk.js.map",
+    "main.js": "/technogym-web/static/js/main.ac6e0680.chunk.js",
+    "main.js.map": "/technogym-web/static/js/main.ac6e0680.chunk.js.map",
     "runtime-main.js": "/technogym-web/static/js/runtime-main.8c0f7f07.js",
     "runtime-main.js.map": "/technogym-web/static/js/runtime-main.8c0f7f07.js.map",
     "static/css/2.4c97ca4f.chunk.css": "/technogym-web/static/css/2.4c97ca4f.chunk.css",
@@ -21,6 +21,6 @@
     "static/css/2.4c97ca4f.chunk.css",
     "static/js/2.5855518e.chunk.js",
     "static/css/main.fb4a06ef.chunk.css",
-    "static/js/main.9f68d699.chunk.js"
+    "static/js/main.ac6e0680.chunk.js"
   ]
 }
